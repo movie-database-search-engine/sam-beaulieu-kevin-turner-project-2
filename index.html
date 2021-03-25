@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>The Movie Database Search Engine</h1>
+    </header>
+    <main>
+        <form action=""></form>
+    </main>
+    
+
+
+
+    <script>
+        const app = {};
+
+        //query selector for search bar = query
+
+        app.configUrl = 'https://api.themoviedb.org/3/search/movie?'
+        app.apiKey = 'a95c3731bb8d542ff3503355315d717a';
+
+        app.testApi = () => {
+            const url = new URL(app.configUrl);
+            url.search = new URLSearchParams({
+                api_key: app.apiKey,
+                query: `Mad Max`
+            });
+
+            fetch(url).then( (res) => {
+                return res.json();
+            }).then( (jsonResponse) => {
+                console.log(jsonResponse.results[0]);
+            })
+
+        }
+
+        app.testApi();
+
+    </script>
+    
+</body>
+</html>
