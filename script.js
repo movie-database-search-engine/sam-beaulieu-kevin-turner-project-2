@@ -36,10 +36,26 @@ app.movieSearch = (apiKey, searchUrl, userQuery) => {
     fetch(url).then( (res) => {
         return res.json();
     }).then( (jsonResponse) => {
+        app.errorHandler(jsonResponse);
         app.displayMovieInfo(jsonResponse);
         app.displayPoster(jsonResponse);
     });
 }
+
+//if the user query has multiple results, display all results on the page as links
+//user clicks the correct choice and page displays info/poster
+app.errorHandler = (movieObject) => {
+    if (movieObject.results.length === 0){
+        // display error message
+    } else if (movieObject.results.length === 1){
+            // call displayMovieInfo/displayPoster
+        } else {
+            // display titles of each film as links
+        }
+}
+
+// function to display multiple movie titles, if applicable
+app.
 
 // print movie title/overview to info-container div
 app.displayMovieInfo = (movieDetails) => {  
@@ -74,5 +90,12 @@ app.displayPoster = (posterUrl) => {
 }
 
 
+
+
+//if there is no results for the user query, display message to try again
+    //if object undefined, display message, else do the right thing
+
+
+    //movie poster for ${movieDetails.results[item].title}
 
 
