@@ -1,0 +1,30 @@
+.wrapper {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.search-form {
+    text-align: center;
+}
+
+label {
+    visibility: hidden;
+    position: absolute;
+}
+
+input {
+    text-align: left;
+    padding-right: 200px;
+    margin-top: 25px;
+}
+
+.container-div {
+    display: flex;
+    padding: 80px 0;
+}

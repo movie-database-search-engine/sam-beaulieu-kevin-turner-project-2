@@ -4,24 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/sass/style.css">
     
     <title>Document</title>
 </head>
 <body>
     <header>
-        <h1>The Movie Database Search Engine</h1>
+        <div class="wrapper">
+            <h1>The Movie Database Search Engine</h1>
+        </div>
     </header>
     <main>
-        
-        <form action="#">     
-            <input type="text" name="searchbar" id="searchbar" placeholder="words" >
-            <label for="searchbar">Search</label>
-            <button type="submit" name="submit-btn">Search</button>
-        </form>
+        <div class="search-form wrapper">
+            <form action="#">     
+                <input type="text" name="searchbar" id="searchbar" placeholder="Enter movie title..." >
+                <label for="searchbar">Search</label>
+                <button type="submit" name="submit-btn">Search</button>
+            </form>
 
-        <div class="info-container"></div>
-        <div class="poster-container"></div>
-
+        </div>
+        <div class="container-div wrapper">
+            <div class="info-container"></div>
+            <div class="poster-container"></div>
+        </div>
     </main>
     <script src="script.js"></script>
 </body>
