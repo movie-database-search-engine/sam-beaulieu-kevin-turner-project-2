@@ -37,8 +37,6 @@ app.movieSearch = (apiKey, searchUrl, userQuery) => {
         return res.json();
     }).then( (jsonResponse) => {
         app.errorHandler(jsonResponse);
-        app.displayMovieInfo(jsonResponse);
-        app.displayPoster(jsonResponse);
     });
 }
 
@@ -46,16 +44,43 @@ app.movieSearch = (apiKey, searchUrl, userQuery) => {
 //user clicks the correct choice and page displays info/poster
 app.errorHandler = (movieObject) => {
     if (movieObject.results.length === 0){
-        // display error message
+        const errorElement = document.createElement('p');
+        errorElement.classList.add('error-message');
+        errorElement.innerHTML = 'No movies found that match your search, please try a valid movie title';
+        app.movieInfo.appendChild(errorElement);
     } else if (movieObject.results.length === 1){
-            // call displayMovieInfo/displayPoster
+        app.displayMovieInfo(movieObject.results[0]);
+        app.displayPoster(movieObject.results[0]);
         } else {
             // display titles of each film as links
+            app.displayMultiTitle(movieObject);
         }
 }
 
 // function to display multiple movie titles, if applicable
-app.
+app.displayMultiTitle = (movieTitleObj) => {
+    app.movieInfo.innerHTML = "";
+    //create ul
+    const ulElement = document.createElement('ul');
+    app.movieInfo.appendChild(ulElement);
+    //grab array of movie objects
+    const movieArray = movieTitleObj.results;
+    movieArray.map(function(item) {
+        return item;
+    });
+    //iterate through each object grabbing title of movie
+    movieArray.forEach(item => {
+        const liElement = document.createElement('li');
+        const linkElement = document.createElement('a');
+        const movieTitle = item.title;
+        linkElement.innerHTML = movieTitle;
+        linkElement.href='javascript:void(0)';
+        linkElement.onclick= function() {app.displayMovieInfo(item), app.displayPoster(item)};
+        //populate li with title (a tag)
+        liElement.appendChild(linkElement);
+        ulElement.appendChild(liElement);
+    });
+}
 
 // print movie title/overview to info-container div
 app.displayMovieInfo = (movieDetails) => {  
@@ -65,37 +90,27 @@ app.displayMovieInfo = (movieDetails) => {
     // create a p tag to print movie overview into
     const pElement = document.createElement('p');
     // store value
-    const movieTitle = movieDetails.results[0].title;
+    const movieTitle = movieDetails.title;
     // append the movie title to the info div
     h2Element.innerHTML = movieTitle;
     app.movieInfo.appendChild(h2Element);
     //append movie desc to page
-    const movieDesc = movieDetails.results[0].overview;
+    const movieDesc = movieDetails.overview;
     pElement.innerHTML = movieDesc;
     app.movieInfo.appendChild(pElement);
 }
 
 // print movie poster image to poster-container div
-app.displayPoster = (posterUrl) => {
+app.displayPoster = (posterObject) => {
     //create img element to print poster to
     const imgElement = document.createElement('img');
     //clear poster
     app.posterDiv.innerHTML = "";
     //get poster url from api
-    const imgUrl = posterUrl.results[0].poster_path;
+    const imgUrl = posterObject.poster_path;
     //append img url to source, full url from api documentation
     imgElement.src = `https://image.tmdb.org/t/p/w500${imgUrl}`;
+    imgElement.alt = `movie poster for ${posterObject.title}`
     //append img element to page
     app.posterDiv.appendChild(imgElement);
 }
-
-
-
-
-//if there is no results for the user query, display message to try again
-    //if object undefined, display message, else do the right thing
-
-
-    //movie poster for ${movieDetails.results[item].title}
-
-
