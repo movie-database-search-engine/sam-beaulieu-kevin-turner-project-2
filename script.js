@@ -43,6 +43,8 @@ app.movieSearch = (apiKey, searchUrl, userQuery) => {
 //if the user query has multiple results, display all results on the page as links
 //user clicks the correct choice and page displays info/poster
 app.errorHandler = (movieObject) => {
+    app.posterDiv.innerHTML = "";
+    app.movieInfo.innerHTML = "";
     if (movieObject.results.length === 0){
         const errorElement = document.createElement('p');
         errorElement.classList.add('error-message');
@@ -104,8 +106,6 @@ app.displayMovieInfo = (movieDetails) => {
 app.displayPoster = (posterObject) => {
     //create img element to print poster to
     const imgElement = document.createElement('img');
-    //clear poster
-    app.posterDiv.innerHTML = "";
     //get poster url from api
     const imgUrl = posterObject.poster_path;
     //append img url to source, full url from api documentation
