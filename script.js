@@ -47,33 +47,29 @@ app.errorHandler = (movieObject) => {
     let mediaType = '';
     let details = '';
     if (movieObject.results.length === 0){
+        console.log('do something');
         const errorElement = document.createElement('p');
         errorElement.classList.add('error-message');
-        errorElement.innerHTML = 'No movies found that match your search, please try a valid movie title';
-        app.movieInfo.appendChild(errorElement);
+        errorElement.innerHTML = 'No results found that match your search, please try a valid search';
+        app.infoDiv.appendChild(errorElement);
     } else if (movieObject.results.length === 1){
         if (movieObject.results[0].media_type === 'movie'){
             mediaType = 'title';
             details = 'overview';
-            console.log(mediaType);
-            console.log(details);
         } else if (movieObject.results[0].media_type === 'person') {
             mediaType = 'name';
-            details = 'known_for[0]';
-            console.log(mediaType);
-            console.log(details);
+            details = 'title';
         }
         app.displayMovieInfo(movieObject.results[0], mediaType, details);
-        app.displayPoster(movieObject.results[0]);
-        } else {
-            
+        //app.displayPoster(movieObject.results[0]);
+        } else {      
             // display titles of each film as links
             app.displayMultiTitle(movieObject);
         }
 }
 
 // function to display multiple movie/actor titles, if applicable
-app.displayMultiTitle = (movieTitleObj, mediaType, details) => {
+app.displayMultiTitle = (movieTitleObj) => {
     app.infoDiv.innerHTML = "";
     //create ul
     const ulElement = document.createElement('ul');
@@ -89,87 +85,75 @@ app.displayMultiTitle = (movieTitleObj, mediaType, details) => {
         const linkElement = document.createElement('a');
         const movieTitle = item.media_type;
         let endPoint = '';
+        let descriptionPoint = '';
         if (movieTitle === 'person'){
             endPoint = 'name';
+            descriptionPoint = 'title'
         } else if (movieTitle === 'movie') {
             endPoint = 'title';
+            descriptionPoint = 'overview'
         }
         linkElement.innerHTML = item[endPoint];
         linkElement.href='javascript:void(0)';
-        linkElement.onclick= function() {app.displayMovieInfo(item, endPoint)};
+        linkElement.onclick= function() {app.displayMovieInfo(item, endPoint, descriptionPoint)};
         //populate li with title (a tag)
         liElement.appendChild(linkElement);
         ulElement.appendChild(liElement);
     });
 }
-// app.displayPoster(item)
 
 // print movie title/overview to info-container div
-app.displayMovieInfo = (movieDetails, mediaType) => {
+app.displayMovieInfo = (movieDetails, mediaType, description) => {
     // create an h2 to print movie title into
     const h2Element = document.createElement('h2');
     app.infoDiv.innerHTML = "";
-    // create a p tag to print movie overview into
-    const pElement = document.createElement('p');
     // store value
     const movieTitle = movieDetails[mediaType];
     // append the movie title to the info div
     h2Element.innerHTML = movieTitle;
     app.infoDiv.appendChild(h2Element);
     let movieDesc = '';
-    // iterate through known for objects
-    movieDetails.known_for.forEach(item => {
-        movieDesc = item.title;
-        // create a p tag to print movie overview into
+    let posterOrProfile = '';
+    if(description === 'overview') {
+        movieDesc = movieDetails[description];
         const pElement = document.createElement('p');
         //append movie desc to page
         pElement.innerHTML = movieDesc;
         app.infoDiv.appendChild(pElement);
-    })
-    
-    
+        posterOrProfile = movieDetails.poster_path;
+        app.displayPoster(movieDetails, posterOrProfile)
+
+    } else if(description === 'title') {
+        // iterate through known for objects
+        movieDetails.known_for.forEach(item => {
+            movieDesc = item[description];
+            // create a p tag to print movie overview into
+            const pElement = document.createElement('p');
+            //append movie desc to page
+            pElement.innerHTML = movieDesc;
+            app.infoDiv.appendChild(pElement);   
+        });
+        posterOrProfile = movieDetails.profile_path;
+        app.displayPoster(movieDetails, posterOrProfile)
+    }  
 }
 
 // print movie poster image to poster-container div
-app.displayPoster = (posterObject) => {
+app.displayPoster = (posterObject, imgPath) => {
     //create img element to print poster to
     const imgElement = document.createElement('img');
     //get poster url from api
-    const imgUrl = posterObject.poster_path;
+    const imgUrl = imgPath;
+    let altDesc = '';
+    if(posterObject.media_type === 'person') {
+        altDesc = posterObject.name;
+        imgElement.alt = `profile picture for ${altDesc}`
+    } else if(posterObject.media_type === 'movie') {
+        altDesc = posterObject.title
+        imgElement.alt = `movie poster for ${altDesc}`
+    }
     //append img url to source, full url from api documentation
     imgElement.src = `https://image.tmdb.org/t/p/w500${imgUrl}`;
-    imgElement.alt = `movie poster for ${posterObject.title}`
-    //append img element to page
-    app.posterDiv.appendChild(imgElement);
-}
-
-// print actor name/known for credits to info-container div
-app.displayActorInfo = (actorDetails) => {  
-    // create an h2 to print actor name into
-    const actorH2Element = document.createElement('h2');
-    app.infoDiv.innerHTML = "";
-    // create a p tag to print movie overview into
-    const pElement = document.createElement('p');
-    // store value
-    const actorName = actorDetails.results[0].name;
-    // append the actor name to the info div
-    actorH2Element.innerHTML = actorName;
-    app.infoDiv.appendChild(actorH2Element);
-    //append movie desc to page
-    const actorKnownFor = actorDetails.results[0].known_for[0].title;
-    pElement.innerHTML = actorKnownFor;
-    app.infoDiv.appendChild(pElement);
-}
-
-// print actor image to poster-container div
-app.displayActorImg = (actorImgObject) => {
-    //create img element to print poster to
-    const imgElement = document.createElement('img');
-    //get poster url from api
-    const imgUrl = actorImgObject.results[0].profile_path;
-    //append img url to source, pull url from api documentation
-    imgElement.src = `https://image.tmdb.org/t/p/w500/${imgUrl}`;
-    imgElement.alt = `image of ${actorImgObject.results[0].name}`
     //append img element to page
     app.posterDiv.appendChild(imgElement);
 }

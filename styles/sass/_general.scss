@@ -23,6 +23,24 @@ header {
   background-size: cover;
 }
 
+ul {
+  list-style-type: none;
+}
+
+li {
+  line-height: 2rem;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
 h1 {
   margin: 0;
   padding-top: 4rem;
@@ -35,6 +53,7 @@ h1 {
 
 main {
   background: #951105;
+  color: white
 }
 
 .search-form {
@@ -49,23 +68,23 @@ main {
   text-transform: uppercase;
 }
 
-.movie-form,
-.actor-form {
-  display: flex;
-  flex-direction: column;
-}
-
 input {
   text-align: left;
   margin-top: 1.25rem;
+  padding-right: 200px;
 }
-
-
 
 .container-div {
   display: flex;
   padding: 4rem 0;
 }
+
+.info-container {
+  width: 50%;
+  padding: 40px;
+}
+
+
 
 footer {
   padding: 0.25rem 0;
