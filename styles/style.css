@@ -266,6 +266,24 @@ header {
   background-size: cover;
 }
 
+ul {
+  list-style-type: none;
+}
+
+li {
+  line-height: 2rem;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
 h1 {
   margin: 0;
   padding-top: 4rem;
@@ -278,6 +296,7 @@ h1 {
 
 main {
   background: #951105;
+  color: white;
 }
 
 .search-form {
@@ -296,20 +315,10 @@ main {
   text-transform: uppercase;
 }
 
-.movie-form,
-.actor-form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
 input {
   text-align: left;
   margin-top: 1.25rem;
+  padding-right: 200px;
 }
 
 .container-div {
@@ -317,6 +326,11 @@ input {
   display: -ms-flexbox;
   display: flex;
   padding: 4rem 0;
+}
+
+.info-container {
+  width: 50%;
+  padding: 40px;
 }
 
 footer {
