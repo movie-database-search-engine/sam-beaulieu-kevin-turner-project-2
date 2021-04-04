@@ -1,0 +1,51 @@
+@media (max-width: 970px) {
+  .info-container {
+    margin-right: 2rem;
+  }
+}
+
+@media (max-width: 830px) {
+  .container-div {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .info-container,
+  .poster-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 570px) {
+  .wrapper {
+    max-width: 570px;
+    width: 95%;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    padding-top: 2rem;
+  }
+
+  .search-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search-form p {
+    font-size: 1rem;
+  }
+
+  input {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+}
