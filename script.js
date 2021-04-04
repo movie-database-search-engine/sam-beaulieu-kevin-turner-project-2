@@ -46,7 +46,6 @@ app.errorHandler = (movieObject) => {
     let mediaType = '';
     let details = '';
     if (movieObject.results.length === 0){
-        console.log('do something');
         const errorElement = document.createElement('p');
         errorElement.classList.add('error-message');
         errorElement.innerHTML = 'No results found that match your search, please try a valid search';
@@ -79,7 +78,6 @@ app.displayMultiTitle = (movieTitleObj) => {
     });
     //iterate through each object grabbing title of movie
     movieArray.forEach(item => {
-        console.log(item);
         const liElement = document.createElement('li');
         const linkElement = document.createElement('a');
         const movieTitle = item.media_type;
