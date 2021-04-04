@@ -1,6 +1,8 @@
-// font-family: 'Josefin Sans', sans-serif;
-
-// font-family: 'Roboto', sans-serif;
+img { 
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
 .wrapper {
   max-width: 1200px;
@@ -13,6 +15,7 @@ html {
   margin: 0;
   padding: 0;
   background: #951105;
+  position: relative;
 }
 
 header {
@@ -33,7 +36,7 @@ li {
 
 a {
   text-decoration: none;
-  color: white;
+  color: #FAEBD7;
 }
 
 a:hover,
@@ -53,38 +56,57 @@ h1 {
 
 main {
   background: #951105;
-  color: white
+  color: #FAEBD7;
+  font-family: 'Roboto', sans-serif;
+  min-height: 55vh;
 }
 
 .search-form {
-  display: flex;
-  justify-content: space-evenly;
+text-align: center;
 }
 
 .search-form p {
-  color: #FAEBD7;
-  font-size: 2rem;
-  font-family: 'Josefin Sans', sans-serif;
-  text-transform: uppercase;
+  font-size: 1.5rem;
 }
 
 input {
   text-align: left;
-  margin-top: 1.25rem;
-  padding-right: 200px;
+  width: 50%;
+  margin-right: 0.25rem;
+  border: none;
+  padding: 0.25rem 0;
+}
+
+button {
+  background: #000;
+  color: #FFF;
+  border: none;
+  border-radius: 0.25rem;
+  width: 20%;
+  padding: 0.25rem 0;
+}
+
+button:hover,
+button:focus {
+  background: #FFF;
+  color: #000;
+}
+
+h2 {
+  margin: 0;
+  font-size: 2.5rem;
 }
 
 .container-div {
   display: flex;
-  padding: 4rem 0;
+  justify-content: space-between;
+  padding: 2.5rem 0;
 }
 
 .info-container {
-  width: 50%;
-  padding: 40px;
+  font-size: 1.25rem;
+  width: 40%;
 }
-
-
 
 footer {
   padding: 0.25rem 0;
@@ -93,6 +115,9 @@ footer {
   text-transform: uppercase;
   font-family: 'Roboto', sans-serif;
   color: #FAEBD7;
+  position: relative;
+  bottom: 0;
+  width: 100%;
 }
 
 footer a {
