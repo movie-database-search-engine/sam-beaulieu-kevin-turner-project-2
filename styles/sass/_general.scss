@@ -28,10 +28,15 @@ header {
 
 ul {
   list-style-type: none;
+
 }
 
 li {
   line-height: 2rem;
+}
+li p {
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 a {

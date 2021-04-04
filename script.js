@@ -34,7 +34,6 @@ app.movieSearch = (apiKey, searchUrl, userQuery) => {
         return res.json();
     }).then( (jsonResponse) => {
         app.errorHandler(jsonResponse);
-        // console.log(jsonResponse);
     });
 }
 
@@ -61,7 +60,6 @@ app.errorHandler = (movieObject) => {
             details = 'title';
         }
         app.displayMovieInfo(movieObject.results[0], mediaType, details);
-        //app.displayPoster(movieObject.results[0]);
         } else {      
             // display titles of each film as links
             app.displayMultiTitle(movieObject);
@@ -81,6 +79,7 @@ app.displayMultiTitle = (movieTitleObj) => {
     });
     //iterate through each object grabbing title of movie
     movieArray.forEach(item => {
+        console.log(item);
         const liElement = document.createElement('li');
         const linkElement = document.createElement('a');
         const movieTitle = item.media_type;
@@ -91,6 +90,9 @@ app.displayMultiTitle = (movieTitleObj) => {
             descriptionPoint = 'title'
         } else if (movieTitle === 'movie') {
             endPoint = 'title';
+            descriptionPoint = 'overview'
+        } else {
+            endPoint = 'name';
             descriptionPoint = 'overview'
         }
         linkElement.innerHTML = item[endPoint];
@@ -114,6 +116,9 @@ app.displayMovieInfo = (movieDetails, mediaType, description) => {
     app.infoDiv.appendChild(h2Element);
     let movieDesc = '';
     let posterOrProfile = '';
+
+    const ulElement = document.createElement('ul');
+    app.infoDiv.appendChild(ulElement);
     if(description === 'overview') {
         movieDesc = movieDetails[description];
         const pElement = document.createElement('p');
@@ -125,13 +130,18 @@ app.displayMovieInfo = (movieDetails, mediaType, description) => {
 
     } else if(description === 'title') {
         // iterate through known for objects
+        const knownElement = document.createElement('p');
+        const knownLiElement = document.createElement('li');
+        knownElement.innerHTML = 'Known For:';
+        knownLiElement.appendChild(knownElement);
+        ulElement.appendChild(knownLiElement);
         movieDetails.known_for.forEach(item => {
             movieDesc = item[description];
             // create a p tag to print movie overview into
-            const pElement = document.createElement('p');
+            const liElement = document.createElement('li');
             //append movie desc to page
-            pElement.innerHTML = movieDesc;
-            app.infoDiv.appendChild(pElement);   
+            liElement.innerHTML = movieDesc;
+            ulElement.appendChild(liElement)  
         });
         posterOrProfile = movieDetails.profile_path;
         app.displayPoster(movieDetails, posterOrProfile)
