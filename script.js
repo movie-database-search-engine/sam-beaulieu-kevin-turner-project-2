@@ -124,8 +124,7 @@ app.displayMovieInfo = (movieDetails, mediaType, description) => {
         pElement.innerHTML = movieDesc;
         app.infoDiv.appendChild(pElement);
         posterOrProfile = movieDetails.poster_path;
-        app.displayPoster(movieDetails, posterOrProfile)
-
+        app.displayPoster(movieDetails, posterOrProfile);
     } else if(description === 'title') {
         // iterate through known for objects
         const knownElement = document.createElement('p');
@@ -153,7 +152,7 @@ app.displayPoster = (posterObject, imgPath) => {
     //get poster url from api
     const imgUrl = imgPath;
     let altDesc = '';
-    if(posterObject.media_type === 'person') {
+    if (posterObject.media_type === 'person') {
         altDesc = posterObject.name;
         imgElement.alt = `profile picture for ${altDesc}`
     } else if(posterObject.media_type === 'movie') {
